@@ -1,0 +1,7 @@
+.DS_Store
+node_modules
+.env
+.tmp
+.rpt2_cache
+.history
+package-lock.json
