@@ -4,4 +4,4 @@ node_modules
 .tmp
 .rpt2_cache
 .history
-package-lock.json
+.npmrc

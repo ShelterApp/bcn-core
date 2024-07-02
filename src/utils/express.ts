@@ -1,8 +1,11 @@
+/* tslint:disable */
+
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes';
 
 import { HttpError } from './error';
 import errorHandler from './error-handler';
+import { isValidObjectId, Types } from 'mongoose';
 
 // ---------------------------------------------------
 // ----------------------Helpers----------------------
@@ -13,8 +16,8 @@ interface OriginalQuery {
   readonly populate?: string;
 }
 interface Query {
-  readonly select: ReadonlyArray<string>;
-  readonly populate: ReadonlyArray<string>;
+  readonly select: string[];
+  readonly populate: string[];
 }
 interface OriginalListQuery {
   readonly sort?: string;
@@ -26,14 +29,14 @@ interface OriginalListQuery {
   readonly search?: string;
   readonly q?: string;
   readonly filter?: string;
-  readonly [key: string]: any;  // tslint:disable-line: no-mixed-interface
+  readonly [key: string]: any; // tslint:disable-line: no-mixed-interface
 }
 interface ListQuery {
   readonly query: {
-    readonly [key: string]: string | ReadonlyArray<string> | any;
+    readonly [key: string]: string | string[] | any;
   };
-  readonly select: ReadonlyArray<string>;
-  readonly populate: ReadonlyArray<string>;
+  readonly select: string[];
+  readonly populate: string[];
   readonly sort: string;
   readonly skip: number;
   readonly limit: number;
@@ -57,12 +60,18 @@ const parseSearchQuery = (searchBy: string, keyword: string) => {
     return {};
   }
 
-  const query = searchBy.trim().split(',').reduce(
-    (prev: ReadonlyArray<any>, key) => !key.trim() ? prev : prev.concat({
-      [key.trim()]: new RegExp(keyword.trim(), 'gi'),
-    }),
-    [],
-  );
+  const query = searchBy
+    .trim()
+    .split(',')
+    .reduce(
+      (prev: ReadonlyArray<any>, key) =>
+        !key.trim()
+          ? prev
+          : prev.concat({
+              [key.trim()]: new RegExp(keyword.trim(), 'gi'),
+            }),
+      [],
+    );
 
   if (query.length === 0) {
     return {};
@@ -76,8 +85,10 @@ const parseFilterQuery = (filterBy: string, values: { readonly [key: string]: st
     return {};
   }
 
-  return filterBy.trim().split(',').reduce(
-    (prev: { readonly [key: string]: any }, key) => {
+  return filterBy
+    .trim()
+    .split(',')
+    .reduce((prev: { readonly [key: string]: any }, key) => {
       if (!key || !key.trim()) {
         return prev;
       }
@@ -85,25 +96,22 @@ const parseFilterQuery = (filterBy: string, values: { readonly [key: string]: st
       if (!values[key.trim()].trim()) {
         return {
           ...prev,
-          $or: [
-            ...(prev['$or'] || []),
-            { [key.trim()]: { $exists: false } },
-            { [key.trim()]: null },
-          ],
+          $or: [...(prev['$or'] || []), { [key.trim()]: { $exists: false } }, { [key.trim()]: null }],
         };
       }
 
       const valuesArray = values[key.trim()].trim().split(',');
+      let singleValue: any = valuesArray[0];
+
+      if (isValidObjectId(singleValue)) {
+        singleValue = Types.ObjectId(singleValue);
+      }
 
       return {
         ...prev,
-        [key.trim()]: valuesArray.length === 1
-          ? valuesArray[0]
-          : { $in: valuesArray.map(v => v.trim()) },
+        [key.trim()]: valuesArray.length === 1 ? singleValue : { $in: valuesArray.map(v => v.trim()) },
       };
-    },
-    {},
-  ) as any;
+    }, {}) as any;
 };
 
 const parseSelect = (select: string) => {
@@ -118,27 +126,27 @@ const parseSort = (sort: string, direction: string) => {
   return direction === 'desc' ? `-${sort.trim()}` : sort.trim();
 };
 
-const parseQuery = ({
-  select = '',
-  populate = '',
-}: OriginalQuery): Query => ({
+const parseQuery = ({ select = '', populate = '' }: OriginalQuery): Query => ({
   select: parseSelect(select),
   populate: parsePopulate(populate),
 });
 
 const parseListQuery = ({
-  search = '', q = '',
+  search = '',
+  q = '',
   filter = '',
   select = '',
   populate = '',
-  sort = 'createdAt', direction = 'asc',
-  skip = 0, limit = 25,
+  sort = 'createdAt',
+  direction = 'asc',
+  skip = 0,
+  limit = 25,
   ...filterValues
 }: OriginalListQuery): ListQuery => {
   const { $or: searchOr, ...searchQuery } = parseSearchQuery(search, q);
   const { $or: filterOr, ...filterQuery } = parseFilterQuery(filter, filterValues);
 
-  const $and = [];  // tslint:disable-line: readonly-array
+  const $and = []; // tslint:disable-line: readonly-array
   if (searchOr) {
     $and.push({ $or: searchOr });
   }
@@ -173,7 +181,7 @@ const parseListQuery = ({
 const parseQueryMiddleware = (req: Request, _: Response, next: NextFunction) => {
   try {
     const myQuery = parseQuery(req.query);
-    Object.assign(req, { myQuery });  // tslint:disable-line: no-object-mutation
+    Object.assign(req, { myQuery }); // tslint:disable-line: no-object-mutation
 
     next();
   } catch (err) {
@@ -190,7 +198,7 @@ const parseQueryMiddleware = (req: Request, _: Response, next: NextFunction) => 
 const parseListQueryMiddleware = (req: Request, _: Response, next: NextFunction) => {
   try {
     const myQuery = parseListQuery(req.query);
-    Object.assign(req, { myQuery });  // tslint:disable-line: no-object-mutation
+    Object.assign(req, { myQuery }); // tslint:disable-line: no-object-mutation
 
     next();
   } catch (err) {
@@ -244,17 +252,13 @@ export {
   Query,
   OriginalListQuery,
   ListQuery,
-
   DEFAULT_QUERY,
   DEFAULT_LIST_QUERY,
-
   parseQuery,
   parseListQuery,
-
   parseQueryMiddleware,
   parseListQueryMiddleware,
   validateBody,
-
   handleNotFound,
   handleErrors,
 };

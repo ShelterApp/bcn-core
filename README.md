@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>bcn-core</h1>
+  <h1>@bcn/core</h1>
   <p>Core Libraries such as type definitions, api clients and utils serving for backend services and frontend services</p>
   </div>
 </div>
@@ -26,7 +26,7 @@ Use `yarn link @bcn/core` to link another package that you’d like to test into
 ## Usage
 
 ```javascript
-import { isDev } from "@bcn/core/dist/utils";
+import { isDev } from '@bcn/core/dist/utils';
 
 isDev();
 ```

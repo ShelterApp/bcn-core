@@ -1,0 +1,25 @@
+import { QueryParams } from "../base";
+import { User } from "../../models";
+import { SetPermissionBody } from "./types";
+declare function list(queryParams?: QueryParams): Promise<ReadonlyArray<User>>;
+declare function count(queryParams?: QueryParams): Promise<number>;
+declare function create(data: any): Promise<User>;
+declare function get(id: string, queryParams?: QueryParams): Promise<User>;
+declare function update({ id, ...data }: User): Promise<User>;
+declare function del(id: string): Promise<User>;
+declare function togglePerm(id: string): Promise<User>;
+declare function togglePermSupperUser(id: string): Promise<User>;
+declare function setPermission(id: string, data: SetPermissionBody): Promise<User>;
+declare const _default: {
+    list: typeof list;
+    count: typeof count;
+    create: typeof create;
+    get: typeof get;
+    update: typeof update;
+    del: typeof del;
+    togglePerm: typeof togglePerm;
+    togglePermSupperUser: typeof togglePermSupperUser;
+    setPermission: typeof setPermission;
+};
+export default _default;
+export { list, count, create, get, update, del, togglePerm, togglePermSupperUser, setPermission, };
