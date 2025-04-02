@@ -441,5 +441,5 @@ export default {
     PH_COORDINATOR_NAME: "Ejemplo: Centro de Escuelas y Comunidades",
 
     //Others
-    LANGUAGE: "Language: English",
+    LANGUAGE: "Idioma: español",
 };
