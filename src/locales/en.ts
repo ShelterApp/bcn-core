@@ -403,6 +403,7 @@ export default {
     CLOTHES: "Clothes",
     HYGIENE: "Hygiene",
     TECH: "Tech",
+    TRANSIT: "Transit",
     ASSISTANCE: "Assistance",
 
     // placeholder

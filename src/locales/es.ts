@@ -413,6 +413,7 @@ export default {
     CLOTHES: "Ropa",
     HYGIENE: "Higiene",
     TECH: "Technología",
+    TRANSIT: "Tránsito",
     ASSISTANCE: "Assistencia",
 
     // placeholder
