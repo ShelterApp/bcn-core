@@ -323,6 +323,7 @@ declare const _default: {
     CLOTHES: string;
     HYGIENE: string;
     TECH: string;
+    TRANSIT: string;
     ASSISTANCE: string;
     PH_COMMUNITY_SERVICE_NAME: string;
     PH_LINE_NAME: string;
