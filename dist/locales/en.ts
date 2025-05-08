@@ -172,7 +172,7 @@ export default {
   HOMELESS_LIAISON: 'Homeless Liaison',
   REGIONAL_COORDINATORS: 'Regional Coordinators',
   MY_FAVORITES: 'My Favorites',
-  ABOUT_BCN: 'About App',
+  ABOUT_BCN: 'About BCN App',
   SHOW_TUTORIAL: 'Show Tutorial',
   GIVE_FEEDBACK: 'Give Feedback',
   VOLUNTEER: 'Volunteer',
@@ -353,7 +353,7 @@ export default {
 
   // intro
   SKIP: 'SKIP',
-  WELCOME_BCN: 'Finding Your Way in PA Intro',
+  WELCOME_BCN: 'Wellcome to BCN App',
   MILES: 'Miles',
   CLOSED_TILL: 'Closed till',
   CLOSED_UNTIL: 'Closed until',

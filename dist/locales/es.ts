@@ -172,7 +172,7 @@ export default {
   HOMELESS_LIAISON: 'Enlaces sin hogar',
   REGIONAL_COORDINATORS: 'Coordinadores regionales',
   MY_FAVORITES: 'Favoritos',
-  ABOUT_BCN: 'Sobre App',
+  ABOUT_BCN: 'Sobre BCN App',
   SHOW_TUTORIAL: 'Mostrar tutorial',
   GIVE_FEEDBACK: 'Dar opinión',
   VOLUNTEER: 'Voluntario',
@@ -360,7 +360,7 @@ export default {
 
   // intro
   SKIP: 'SKIP',
-  WELCOME_BCN: 'Bienvenida a App',
+  WELCOME_BCN: 'Bienvenido a la aplicación BCN',
   MILES: 'Millas',
   CLOSED_STILL: 'Cerrado hasta',
   CLOSED_TILL: 'Cerrado hasta',
