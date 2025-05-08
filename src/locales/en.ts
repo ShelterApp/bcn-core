@@ -353,7 +353,7 @@ export default {
 
   // intro
   SKIP: 'SKIP',
-  WELCOME_BCN: 'Wellcome to BCN App',
+  WELCOME_BCN: 'Welcome to BCN App',
   MILES: 'Miles',
   CLOSED_TILL: 'Closed till',
   CLOSED_UNTIL: 'Closed until',
