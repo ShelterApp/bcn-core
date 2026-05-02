@@ -32,6 +32,7 @@ interface User {
   readonly totalServices?: number;
   readonly createdAt?: Date;
   readonly updatedAt?: Date;
+  readonly isAdmin: boolean;
 }
 
 export {
