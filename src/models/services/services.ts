@@ -103,19 +103,17 @@ interface Service {
   readonly isApproved?: boolean;
   readonly approvedAt?: Date;
   readonly category?: readonly ScheduleCategory[];
-    // tslint:disable-next-line:max-line-length max-union-size
-  readonly schedules?: // tslint:disable-next-line:max-union-size
+  readonly schedules?: 
     | readonly WeeklySchedule[]
         | readonly MonthlySchedule[]
         | readonly DateRangeSchedule[]
         | readonly FullDaySchedule[];
-    // tslint:disable-next-line:max-line-length max-union-size
-  readonly closeSchedules?: // tslint:disable-next-line:max-union-size
+  readonly closeSchedules?: 
     | readonly WeeklySchedule[]
         | readonly MonthlySchedule[]
         | readonly DateRangeSchedule[]
         | readonly PermanentClosedSchedule[];
-  readonly likes?: number; // * Not This
+  readonly likes?: number;
   readonly location?: ServiceLocation;
   readonly isSelectedAll?: boolean;
   readonly type?: readonly ServiceType[];
@@ -123,7 +121,7 @@ interface Service {
   readonly isShowFlag?: boolean;
   readonly isShowDonate?: boolean;
   readonly isContact?: boolean;
-  readonly user?: string | User; // * Not This
+  readonly user?: string | User;
   readonly contactEmail?: string;
   readonly website?: string;
   readonly facebook?: string;
@@ -143,6 +141,9 @@ interface Service {
   readonly isCriticalNeverExpire?: boolean;
   readonly createdAt?: Date;
   readonly updatedAt?: Date;
+  readonly serviceSummaryEs?: String;
+  readonly descriptionEs?: String;
+  readonly ageEs?: String;
 }
 
 export {

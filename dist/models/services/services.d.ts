@@ -121,5 +121,8 @@ interface Service {
     readonly isCriticalNeverExpire?: boolean;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
+    readonly serviceSummaryEs?: String;
+    readonly descriptionEs?: String;
+    readonly ageEs?: String;
 }
 export { Service, ScheduleType, ServiceType, ScheduleCategory, WeeklySchedule, MonthlySchedule, MonthPeriod, DayPeriod, DateRangeSchedule, FullDaySchedule, PermanentClosedSchedule, };
